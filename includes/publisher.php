@@ -139,6 +139,10 @@ class GIW_Publisher{
             $menu_order = empty( $front_matter[ 'menu_order' ] ) ? 0 : $front_matter[ 'menu_order' ];
             $taxonomy = $front_matter[ 'taxonomy' ];
             $custom_fields = $front_matter[ 'custom_fields' ];
+            $comment_status = empty( $front_matter[ 'comment_status' ] ) ? 'closed' : $front_matter[ 'comment_status' ];
+            if ($comment_status != 'open') {
+              $comment_status = 'closed';
+            }
 
             $post_date = '';
             if( !empty( $front_matter[ 'post_date' ] ) ){
@@ -157,6 +161,7 @@ class GIW_Publisher{
             $menu_order = 0;
             $taxonomy = array();
             $custom_fields = array();
+            $comment_status = 'closed';
 
             $content = '';
             $sha = '';
@@ -180,7 +185,8 @@ class GIW_Publisher{
             'post_parent' => $parent,
             'post_date' => $post_date,
             'menu_order' => $menu_order,
-            'meta_input' => $meta_input
+            'meta_input' => $meta_input,
+            'comment_status' => $comment_status
         );
 
         $new_post_id = wp_insert_post( $post_details );
